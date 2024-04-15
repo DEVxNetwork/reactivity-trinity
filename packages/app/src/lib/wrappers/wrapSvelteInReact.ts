@@ -1,10 +1,4 @@
-import {
-	useEffect,
-	createElement,
-	useRef,
-	useState,
-	type ReactHTML,
-} from "react"
+import { useEffect, createElement, useRef, useState } from "react"
 import {
 	mount,
 	unmount,
@@ -15,13 +9,11 @@ import {
 
 // https://github.com/pngwn/svelte-adapter/blob/master/react.js
 
-export const wrapSvelteInReact =
-	<Comp extends SvelteComponent, T extends HTMLElement>(
-		Component: ComponentType<Comp>,
-		type: keyof ReactHTML = "span",
-	) =>
-	(props: ComponentProps<Comp>) => {
-		const containerRef = useRef<T | null>(null)
+export const wrapSvelteInReact = <Comp extends SvelteComponent>(
+	Component: ComponentType<Comp>,
+) => {
+	return (props: ComponentProps<Comp>) => {
+		const elementRef = useRef<HTMLSpanElement | null>(null)
 		const [isMounted, setIsMounted] = useState(false)
 		const propsRef = useRef(props)
 
@@ -30,14 +22,15 @@ export const wrapSvelteInReact =
 				setIsMounted(true)
 				return
 			}
-			
+
 			const component = mount(Component, {
-				target: containerRef.current!,
+				target: elementRef.current!,
 				props: propsRef.current,
 			})
 
 			return () => unmount(component)
 		}, [isMounted, propsRef])
 
-		return createElement(type, { ref: containerRef })
+		return createElement("span", { ref: elementRef })
 	}
+}

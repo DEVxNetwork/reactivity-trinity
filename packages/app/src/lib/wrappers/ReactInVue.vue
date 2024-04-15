@@ -1,24 +1,24 @@
 <script setup lang="ts">
-	import { ref, onMounted } from 'vue'
-	import { createElement, type FunctionComponent } from "react";
-    import { render as renderReactElement, unmountComponentAtNode } from "react-dom";
-	
-	const element = ref<HTMLDivElement | undefined>()
+import { ref, onMounted } from "vue"
+import { createElement, type FunctionComponent } from "react"
+import { render as renderReactElement, unmountComponentAtNode } from "react-dom"
 
-	const { Component, props }  = defineProps<{
-  		Component: FunctionComponent
-		props?: Record<string, any>
-	}>()
+const element = ref<HTMLDivElement | undefined>()
 
-	onMounted(() => {
-		renderReactElement(createElement(Component, props), element.value);
+const { Component, props } = defineProps<{
+	Component: FunctionComponent
+	props?: Record<string, any>
+}>()
 
-		return () => {
-  			if (element.value) unmountComponentAtNode(element.value)
-		}  
-	})
+onMounted(() => {
+	renderReactElement(createElement(Component, props), element.value)
+
+	return () => {
+		if (element.value) unmountComponentAtNode(element.value)
+	}
+})
 </script>
 
 <template>
-  <span ref="element"></span>
+	<span ref="element" />
 </template>

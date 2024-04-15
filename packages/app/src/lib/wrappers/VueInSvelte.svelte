@@ -3,24 +3,24 @@
 </script>
 
 <script lang="ts" generics="P extends Data">
-	 import { createApp, type Component as VueComponent } from 'vue'
+	import { createApp, type Component as VueComponent } from "vue"
 
-  const { Component, props, 
-	  type = "span" 
-  }: { 
-	  Component: VueComponent<P>
-	   props?: P 
-	   type?: string
-   } = $props()
-  let element: HTMLDivElement | undefined
+	const {
+		Component,
+		props,
+	}: {
+		Component: VueComponent<P>
+		props?: P
+	} = $props()
+	let element: HTMLSpanElement | undefined
 
-  $effect(() => {
-    const app = createApp(Component, props)
+	$effect(() => {
+		const app = createApp(Component, props)
 
-	app.mount(element!)
+		app.mount(element!)
 
-	return () => app.unmount()
-  })
+		return () => app.unmount()
+	})
 </script>
 
-<svelte:element this={type} bind:this={element} /> 
+<span bind:this={element} />

@@ -1,20 +1,20 @@
-import { StrictMode} from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
 
-import { mount } from 'svelte'
+import { mount } from "svelte"
 
-import { createApp } from 'vue'
+import { createApp } from "vue"
 
-import { ReactApp, SvelteApp, VueApp } from './apps'
+import { ReactApp, SvelteApp, VueApp } from "./apps"
 
 import "./app.css"
 
-createApp(VueApp).mount('#vue')
+createApp(VueApp).mount("#vue")
 
-mount(SvelteApp, { target: document.getElementById('svelte')! })
+mount(SvelteApp, { target: document.getElementById("svelte")! })
 
-createRoot(document.getElementById('react')!).render(
-  <StrictMode>
-    <ReactApp />
-  </StrictMode>,
+createRoot(document.getElementById("react")!).render(
+	<StrictMode>
+		<ReactApp />
+	</StrictMode>,
 )
